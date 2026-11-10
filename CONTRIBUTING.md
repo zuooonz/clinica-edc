@@ -17,13 +17,17 @@ mvn -B -ntp -C -f tools/i18n-baseline/pom.xml clean test
 python3 tools/check_database_baseline.py
 python3 tools/verify_pdfbox_layout.py
 mvn -B -ntp -C -pl core -am -DskipTests=false \
-  -Dtest=PdfBoxLayoutTest,TwoFactorServiceTest,TwoFactorCertificateTest \
+  -Dtest=PdfBoxLayoutTest,TwoFactorServiceTest,TwoFactorCertificateTest,ChineseDateFormatTest,DiscrepancyNoteLocalizationTest \
   -DfailIfNoTests=false -Dsurefire.failIfNoSpecifiedTests=false test
 python3 tools/verify_pdfbox_layout.py --generated vendor/pdfbox2-layout/target/generated-sources/pdfbox2
 python3 -m unittest discover -s tools/tests -v
 mvn -B -ntp -C package
 git diff --check
 ```
+
+中文资源还须运行 `node tools/browser-baseline/calendar-test.cjs`，并在隔离合成候选运行
+`node tools/browser-baseline/chinese.cjs`；需 Playwright、Chromium、中文字形字体与 pdftotext。
+受保护原文和日期模式不随翻译任意修改，原文保留清单变动须说明原因。
 
 使用 JDK 11、Maven 3.9.9；Docker 测试仅使用合成数据。父 POM 默认跳过旧数据库测试，
 `package` 成功不能写成旧测试通过；完整工作流须另行验收。

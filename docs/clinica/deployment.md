@@ -146,6 +146,16 @@ CLINICA_INSTANCE=candidate node tools/browser-baseline/smoke.cjs
 缺失/错误 API 凭据返回 401、空账号 IP allowlist 返回 403、认证用户访问禁用 SDV API 返回 403
 已在候选实例测试；不能据这五个拒绝用例推导跨研究/中心授权或自动写入安全。
 
+中文界面通过浏览器首选语言 `zh-CN` 启用。英文基线冒烟默认 `en-US`，中文端到端使用：
+
+```sh
+node tools/browser-baseline/chinese.cjs
+```
+
+该脚本只允许候选 loopback 端口（含重定向和资源请求），使用唯一且明确标为合成的受试者，
+重跑先查询并核对，拒绝模糊结果；凭据不输出。截图/PDF 保存在权限 0700 的 work/zh 目录。
+测试字体和 PDF 文本提取依赖见[本地化说明](localization.md)；不把浏览器 PDF 当作所有导出格式已验收。
+
 升级前保存匹配的 WAR、配置、数据库与文件快照，并在隔离副本验证 Liquibase 和完整业务回归。
 不能假定旧 WAR 可直接连接新 schema；回退须恢复成对快照并验证审计、附件和导出一致。
 本批未验证候选开发线升级/降级，不发布 Release，也不保留会话结束后常驻服务的承诺。

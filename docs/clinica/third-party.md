@@ -47,3 +47,10 @@ Maven 依赖声明位于根目录及 `core/odm/web/ws/docs` 的 POM；前端另�
 
 本表记录新增工具的已知直接许可，不是全部传递依赖或镜像 SBOM。自动下载 Chromium 时还须
 保留浏览器自身的 LICENSE/credits；本次使用云端系统 Chromium，仅生成合成测试截图，未分发浏览器。
+
+中文日历从仓库的 calendar-en.js 派生，沿用原日历 GNU LGPL 条款，保留 Mihai Bazon/dynarch
+版权与许可证原文；中文自然语言由本项目维护，不复制其他项目的中文词表或翻译服务输出。
+云端截图/浏览器 PDF 验收使用 Google Fonts Noto Sans SC 2.004（仓库提交
+`a85815a42757630ce188fdad368c2dfc444d4773`，`ofl/notosanssc`，SIL OFL 1.1），字体和 OFL 文本
+仅存私有 ignored work/zh/fonts，通过本次进程的 FONTCONFIG_FILE 使用；未将字体二进制纳入源码或镜像。
+浏览器部署仍使用系统字体回退，其他环境须具备中文字形。翻译包继承原资源适用许可证，未改根许可。

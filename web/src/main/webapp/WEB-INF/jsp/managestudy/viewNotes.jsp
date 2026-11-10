@@ -138,7 +138,7 @@
             <c:forEach var="typeName"  items="${typeNames}">
                 <td align="center"><strong>${typeName}</strong></td>
             </c:forEach>
-            <td align="center"><strong>Total</strong></td>
+            <td align="center"><strong><fmt:message key="total" bundle="${resword}"/></strong></td>
         </tr>
             <c:forEach var="status" items="${mapKeys}">
                 <tr>
@@ -150,7 +150,7 @@
                 </tr>
             </c:forEach>
         <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-        <tr><td><strong>Total</strong></td>
+        <tr><td><strong><fmt:message key="total" bundle="${resword}"/></strong></td>
             <c:forEach var="typeName"  items="${typeNames}">
                 <td align="center">${typeKeys[typeName]}</td>
             </c:forEach>

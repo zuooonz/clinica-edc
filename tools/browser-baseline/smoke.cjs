@@ -34,7 +34,7 @@ if (buildInfo) {
     ...(process.env.CLINICA_BROWSER_NO_SANDBOX === '1' ? { args: ['--no-sandbox'] } : {}),
   });
   try {
-    const page = await browser.newPage({ locale: 'zh-CN' });
+    const page = await browser.newPage({ locale: process.env.CLINICA_LOCALE || 'en-US' });
     page.setDefaultTimeout(30000);
     const existing = fs.existsSync(credentials);
     const auth = existing ? JSON.parse(fs.readFileSync(credentials, 'utf8'))
@@ -67,7 +67,7 @@ if (buildInfo) {
       assert(home.includes('dd8c98ce2371'), 'Expected official upstream baseline changeset');
     }
     assert(home.includes('Study Director'), 'Expected synthetic root study role');
-    // zh-CN currently falls back to English; do not label this a Chinese UI pass.
+    // This preserves the English baseline; chinese.cjs accepts the Chinese UI.
     assert(home.includes('Subject Matrix'));
     await page.screenshot({ path: path.join(target, `browser-home-${base.port || '80'}.png`), fullPage: true });
     for (const [route, expected] of [

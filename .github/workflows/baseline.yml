@@ -29,6 +29,7 @@ jobs:
       - run: python3 tools/verify_pdfbox_layout.py --generated vendor/pdfbox2-layout/target/generated-sources/pdfbox2
       - run: python3 -m unittest discover -s tools/tests -v
       - run: python3 tools/check_database_baseline.py
+      - run: node tools/browser-baseline/calendar-test.cjs
 
   package:
     runs-on: ubuntu-24.04
@@ -41,6 +42,6 @@ jobs:
       # Parent POM currently skips legacy DB-dependent tests. This is a package
       # gate, not evidence that those tests passed. No dependency cache: verify
       # checksums from fresh downloads on every run.
-      - run: mvn -B -ntp -C -pl core -am -DskipTests=false -Dtest=PdfBoxLayoutTest,TwoFactorServiceTest,TwoFactorCertificateTest -DfailIfNoTests=false -Dsurefire.failIfNoSpecifiedTests=false test
+      - run: mvn -B -ntp -C -pl core -am -DskipTests=false -Dtest=PdfBoxLayoutTest,TwoFactorServiceTest,TwoFactorCertificateTest,ChineseDateFormatTest,DiscrepancyNoteLocalizationTest -DfailIfNoTests=false -Dsurefire.failIfNoSpecifiedTests=false test
       - run: mvn -B -ntp -C package
       - run: test -s web/target/LibreClinica-web.war

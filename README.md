@@ -6,7 +6,9 @@ Clinica EDC
 Clinica Bridge 负责材料处理、候选值和证据审核、Agent 插件；计划中的 Clinica Insight
 负责数据质量与风险分析。模型调用及复杂材料处理优先保留在外部服务。
 
-当前仍是**候选开发基线**，尚无已验收的中文发行版或 Bridge 自动写入接口。
+当前提供**简体中文界面预览版**：浏览器首选语言设为简体中文（`zh-CN`）即可启用，
+英文界面仍可使用。九类资源覆盖全部 3,764 个上游键；受保护角色名称、法律文本和技术编码保留原文。
+完整临床流程及生产使用尚待验收，Bridge 自动写入接口尚未实现。
 现已从固定 MIT 源码构建 PDFBox Layout，解决原 JitPack 摘要异常；新增证书/二维码
 回归与 PostgreSQL 18 候选部署工具，实际验收范围见开发状态。
 先阅读[基线选择](docs/clinica/baseline.md)、[实际开发状态](docs/clinica/status.md)、
