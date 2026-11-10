@@ -1,4 +1,4 @@
-FROM docker.io/library/maven:3-eclipse-temurin-8 AS builder
+FROM docker.io/library/maven:3.9.9-eclipse-temurin-11@sha256:8d3b35643e52d707b16a3e9b52698be1b75c2b45beb5d0e37d35e881f0a18ced AS builder
 
 WORKDIR /app
 
@@ -13,13 +13,21 @@ RUN \
     --mount=type=cache,target=/app/odm/target \
     --mount=type=cache,target=/app/web/target \
     --mount=type=cache,target=/app/ws/target \
-
+    --mount=type=secret,id=maven_settings \
+    --mount=type=secret,id=java_truststore \
     set -eux; \
-    mvn package; \
+    set -- --batch-mode --no-transfer-progress --strict-checksums; \
+    if [ -f /run/secrets/maven_settings ]; then \
+        set -- "$@" --settings /run/secrets/maven_settings; \
+    fi; \
+    if [ -f /run/secrets/java_truststore ]; then \
+        export MAVEN_OPTS="${MAVEN_OPTS:-} -Djavax.net.ssl.trustStore=/run/secrets/java_truststore"; \
+    fi; \
+    mvn "$@" package; \
     mv web/target/LibreClinica-web.war /;
 
 ############################################################
-FROM tomcat:9-jdk11
+FROM tomcat:9-jdk11@sha256:cf13b145adf437e0c30ff3238016b09f9e904d2d75a714894ced0c8b7ea61554
 
 RUN set -eux; \
     # set up redirection to application when accessing tomcat root

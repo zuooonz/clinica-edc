@@ -1,0 +1,8 @@
+{
+  "name": "clinica-original-browser-baseline",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Synthetic loopback-only upstream baseline browser smoke",
+  "scripts": { "test": "node smoke.cjs" },
+  "devDependencies": { "playwright": "1.62.1" }
+}
