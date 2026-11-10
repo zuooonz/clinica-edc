@@ -36,3 +36,7 @@ SHA-256：`25378635ab396195d2bc8d58ee2988383fccf0699d2c5222800c8a37524179c7`。
 [来源说明](../../vendor/pdfbox2-layout/README.md)。这不代表 JitPack 原二进制已被验证，
 也不改变 LibreClinica 原有版本/法律文本。候选部署单独记录 WAR 摘要、内嵌版本、
 changeset 及准备时的 Git SHA/dirty，不能用准备时工作树身份冒认产物来源。
+
+本项目已整合 `clinica/baseline` 的两个历史提交（截至 `7e5c3ff6ae1b4045325811bf4d1b9eb653ca886b`），
+保留根 Compose 命名数据卷、既有卷不自动迁移的说明，以及相同 WAR 名称修复。旧网络失败
+记录属于历史环境，当前构建结果以本项目 CI 和开发状态为准；旧分支保留，不删除或强推。

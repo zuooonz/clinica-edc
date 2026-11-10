@@ -1,5 +1,7 @@
 ## Clinica EDC — Unreleased
 
+- 合并旧 clinica/baseline 分支历史，保留开发 Compose 命名持久卷和迁移说明；候选验收仍使用隔离配置。
+
 - 以固定 MIT 上游源码构建独立坐标的 PDFBox Layout，保留逐文件来源及法律文本，移除原 JitPack 依赖与仓库；严格 Maven 构建恢复通过。
 - 增加源码篡改/生成转换校验、PDF 排版及实际 2FA 证书二维码回归；显式声明原有 ZXing 依赖并隔离测试日志。
 - 增加 PostgreSQL 18 候选 WAR 私有部署准备、产物/工作树身份分离记录、候选浏览器与基础接口拒绝检查；Docker 支持显式源码标识而不复制 .git。
