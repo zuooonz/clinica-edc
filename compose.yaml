@@ -1,6 +1,8 @@
 services:
   libreclinica:
     build: .
+    volumes:
+      - clinica_data:/usr/local/tomcat/libreclinica.data
     ports:
       - "127.0.0.1:8080:8080"
     depends_on:
@@ -27,6 +29,8 @@ services:
 
   db:
     image: docker.io/library/postgres:14-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: clinica
       POSTGRES_USER: clinica
@@ -36,3 +40,7 @@ services:
     image: docker.io/marlonb/mailcrab:v1.1.0
     ports:
       - "127.0.0.1:1080:1080"
+
+volumes:
+  postgres_data:
+  clinica_data:

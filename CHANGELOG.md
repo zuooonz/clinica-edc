@@ -22,3 +22,9 @@
 * ListUserAccountsView: provide information on parent study (#419)
 
 **tests:**
+
+## Clinica EDC (unreleased)
+
+* Document the candidate upstream development baseline and validation gaps.
+* Give the local development Compose database and application data explicit named volumes. Existing anonymous volumes require a separate migration.
+* Set the web WAR's stable filename expected by the development Dockerfile.

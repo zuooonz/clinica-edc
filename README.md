@@ -41,3 +41,8 @@ LibreClinica is open source project that values input from contributors:
 * Christian Hänsel, ReliaTec GmbH
 * Otmar Bayer, ReliaTec GmbH 
 * LibreClinica was forked in 2019 from [OpenClinica](https://github.com/OpenClinica/OpenClinica/commit/425de43caf8e7afcbf66713ad2fb6b83062d66ef) 3.14
+
+### Clinica EDC development
+
+This independently maintained distribution's pinned development baseline, scope,
+and validation gaps are recorded in [docs/clinica/baseline.md](docs/clinica/baseline.md).
