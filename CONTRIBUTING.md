@@ -15,6 +15,12 @@
 ```sh
 mvn -B -ntp -C -f tools/i18n-baseline/pom.xml clean test
 python3 tools/check_database_baseline.py
+python3 tools/verify_pdfbox_layout.py
+mvn -B -ntp -C -pl core -am -DskipTests=false \
+  -Dtest=PdfBoxLayoutTest,TwoFactorServiceTest,TwoFactorCertificateTest \
+  -DfailIfNoTests=false -Dsurefire.failIfNoSpecifiedTests=false test
+python3 tools/verify_pdfbox_layout.py --generated vendor/pdfbox2-layout/target/generated-sources/pdfbox2
+python3 -m unittest discover -s tools/tests -v
 mvn -B -ntp -C package
 git diff --check
 ```
@@ -23,6 +29,8 @@ git diff --check
 `package` 成功不能写成旧测试通过；完整工作流须另行验收。
 云端代理须配置 Maven settings 和受信 CA，不提交环境 settings、凭据或关闭 TLS 校验。
 依赖校验不一致应停止可信构建并调查，不能用关闭 checksum 校验消除失败。
+`vendor/pdfbox2-layout/upstream` 是保留原样的固定 MIT 来源，更新必须同时核实精确提交、
+原始 Git 树、清单、生成转换、法律文本和证书回归；不得手工修改 vendored 源码来绕过校验。
 
 行为、依赖、配置、命令和接口变化须同批更新文档、CHANGELOG 及相关可执行测试。
 提交前检查 staged diff，确保无病例、报告、数据库、备份、凭据、私钥及非公开材料。

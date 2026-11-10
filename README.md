@@ -7,6 +7,8 @@ Clinica Bridge 负责材料处理、候选值和证据审核、Agent 插件；�
 负责数据质量与风险分析。模型调用及复杂材料处理优先保留在外部服务。
 
 当前仍是**候选开发基线**，尚无已验收的中文发行版或 Bridge 自动写入接口。
+现已从固定 MIT 源码构建 PDFBox Layout，解决原 JitPack 摘要异常；新增证书/二维码
+回归与 PostgreSQL 18 候选部署工具，实际验收范围见开发状态。
 先阅读[基线选择](docs/clinica/baseline.md)、[实际开发状态](docs/clinica/status.md)、
 [隔离部署与恢复](docs/clinica/deployment.md)、[角色和工作流](docs/clinica/workflow.md)、
 [本地化](docs/clinica/localization.md)、[接口联调](docs/clinica/bridge.md)、

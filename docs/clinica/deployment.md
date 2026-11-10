@@ -114,8 +114,37 @@ docker build --secret id=maven_settings,src=work/container-maven-settings.xml \
 
 仅在网络确需时提供 secrets，settings 中的代理必须能从构建容器访问；
 保持环境继承的代理和 CA，不提交凭据，不关闭 TLS。
-当前严格构建受上游 JitPack checksum 问题阻断；不得把普通 Maven 警告后的成功包当可信包部署。
+首批严格构建曾受上游 JitPack checksum 问题阻断；现在用固定 MIT 源码内部模块替代，
+不得恢复该异常二进制或关闭严格校验。模块来源与转换须通过 `tools/verify_pdfbox_layout.py`。
 WAR 名固定为 `web/target/LibreClinica-web.war`，已验证普通诊断构建会生成此路径。
+
+Docker 构建上下文不包含 `.git`。为避免 SCM 插件失败，镜像构建显式跳过 revision/timestamp
+查询并通过 build args 写入 `changeSet` / `changeSetDate`；默认值明确为 `unversioned` / `unknown`。
+可审查镜像须传入真实源码标识与日期；脏工作树必须标记 dirty，不能只填干净提交 SHA：
+
+```sh
+docker build --build-arg SOURCE_REVISION=YOUR_REVIEWED_COMMIT \
+  --build-arg SOURCE_DATE=YOUR_SOURCE_DATE -t clinica-edc:test .
+```
+
+### 本项目候选源码实例
+
+先完成严格源码构建、来源校验和证书回归，然后准备隔离实例：
+
+```sh
+python3 tools/verify_pdfbox_layout.py --generated vendor/pdfbox2-layout/target/generated-sources/pdfbox2
+python3 tools/prepare_candidate_baseline.py
+# 使用脚本打印的显式 -p 命令启动。
+CLINICA_INSTANCE=candidate node tools/browser-baseline/smoke.cjs
+```
+
+候选文件只写入 ignored `work/candidate`，拒绝覆盖既有目录。脚本校验 WAR 里唯一的 core JAR、
+新版内部 layout JAR 的 MIT/来源信息和坐标，拒绝混入旧版 layout；记录完整 WAR SHA-256，
+原样保存内嵌版本/changeset，并单独记录准备时工作树身份。准备脚本本身不证明此前构建通过严格校验。
+使用随机密码和唯一项目，PostgreSQL 18.1 数据卷挂到 `/var/lib/postgresql`，应用仅绑定
+`127.0.0.1:18082`，邮件禁向外发送。首次浏览器改密及截图均留在 candidate 私有目录。
+缺失/错误 API 凭据返回 401、空账号 IP allowlist 返回 403、认证用户访问禁用 SDV API 返回 403
+已在候选实例测试；不能据这五个拒绝用例推导跨研究/中心授权或自动写入安全。
 
 升级前保存匹配的 WAR、配置、数据库与文件快照，并在隔离副本验证 Liquibase 和完整业务回归。
 不能假定旧 WAR 可直接连接新 schema；回退须恢复成对快照并验证审计、附件和导出一致。

@@ -42,6 +42,8 @@ Maven 依赖声明位于根目录及 `core/odm/web/ws/docs` 的 POM；前端另�
 | JUnit | 4.13.2，Maven Central | EPL-1.0；独立测试依赖 |
 | Playwright / playwright-core | 1.62.1，registry.npmjs.org；完整性锁定于 package-lock | Apache-2.0；开发测试依赖，不加入 EDC WAR |
 | fsevents | 2.3.2，可选 macOS npm 传递依赖 | MIT；Linux 不安装 |
+| PDFBox Layout | 1.0.1 源码提交 `6902dd0568061afff4da1d05a4cbd5a7f2b9dc8f`，本项目坐标 `org.clinica.vendor:pdfbox2-layout:1.0.1-clinica.1` | MIT，完整原文保存在 vendor/pdfbox2-layout/upstream/LICENSE 并嵌入 binary/sources JAR；来源清单和生成转换见模块 README |
+| ZXing core / javase | 3.4.0，Maven Central | Apache-2.0；原为 totp 的 compile 传递依赖，因证书回归直接使用而显式声明，版本与运行时作用域未改变 |
 
 本表记录新增工具的已知直接许可，不是全部传递依赖或镜像 SBOM。自动下载 Chromium 时还须
 保留浏览器自身的 LICENSE/credits；本次使用云端系统 Chromium，仅生成合成测试截图，未分发浏览器。

@@ -10,6 +10,7 @@
 	<description>LibreClinica</description>
 
 	<modules>
+		<module>vendor/pdfbox2-layout</module>
 		<module>core</module>
 		<module>odm</module>
 		<module>docs</module>

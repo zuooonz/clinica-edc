@@ -24,6 +24,10 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - run: python3 tools/verify_pdfbox_layout.py
+      - run: mvn -B -ntp -C -f vendor/pdfbox2-layout/pom.xml generate-sources
+      - run: python3 tools/verify_pdfbox_layout.py --generated vendor/pdfbox2-layout/target/generated-sources/pdfbox2
+      - run: python3 -m unittest discover -s tools/tests -v
       - run: python3 tools/check_database_baseline.py
 
   package:
@@ -37,5 +41,6 @@ jobs:
       # Parent POM currently skips legacy DB-dependent tests. This is a package
       # gate, not evidence that those tests passed. No dependency cache: verify
       # checksums from fresh downloads on every run.
+      - run: mvn -B -ntp -C -pl core -am -DskipTests=false -Dtest=PdfBoxLayoutTest,TwoFactorServiceTest,TwoFactorCertificateTest -DfailIfNoTests=false -Dsurefire.failIfNoSpecifiedTests=false test
       - run: mvn -B -ntp -C package
       - run: test -s web/target/LibreClinica-web.war

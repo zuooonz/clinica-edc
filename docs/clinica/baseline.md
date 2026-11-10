@@ -30,3 +30,9 @@ SHA-256：`25378635ab396195d2bc8d58ee2988383fccf0699d2c5222800c8a37524179c7`。
 9.0.123 / Java 11.0.33 镜像摘要，稳定 web WAR 名以匹配已有 Docker COPY。
 可复现工具链不代表依赖安全：完整可信构建、安装及业务回归的实际结果见
 [状态](status.md)。上游版本号仍保持原值，不用重命名或改版本号掩盖来源。
+
+本项目的后续差异包括源码供应替代：`org.clinica.vendor:pdfbox2-layout:1.0.1-clinica.1`
+从 MIT 上游提交 `6902dd0568061afff4da1d05a4cbd5a7f2b9dc8f` 构建；详情见
+[来源说明](../../vendor/pdfbox2-layout/README.md)。这不代表 JitPack 原二进制已被验证，
+也不改变 LibreClinica 原有版本/法律文本。候选部署单独记录 WAR 摘要、内嵌版本、
+changeset 及准备时的 Git SHA/dirty，不能用准备时工作树身份冒认产物来源。

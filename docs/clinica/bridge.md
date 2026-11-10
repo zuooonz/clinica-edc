@@ -1,6 +1,8 @@
 # Bridge 接口盘点与联调边界
 
-调查基于 `8b6b7cf3cbe10be884bdd5c47f3de9ad1eb0321f`。目前仅完成静态盘点，**未完成实例请求、权限负向测试或受控写入验证**，本仓库尚不承诺 Bridge 自动写入 API。模型调用、材料解析及候选值生成放在外部 Bridge；EDC 保留业务规则、授权和审计控制。
+调查基于 `8b6b7cf3cbe10be884bdd5c47f3de9ad1eb0321f`。已完成静态盘点及候选实例的五项基础拒绝检查；**跨目标授权、有效 API Key、字段读取和受控写入仍未验证**，本仓库尚不承诺 Bridge 自动写入 API。模型调用、材料解析及候选值生成放在外部 Bridge；EDC 保留业务规则、授权和审计控制。
+
+候选实例实测：研究 API 无认证、Bearer、错误 Basic API Key 分别返回 401；账号研究查询在默认空 IP allowlist 下返回 403；已认证页面用户访问禁用 SDV API 返回 403。自动化位于 `tools/browser-baseline/smoke.cjs` 的 candidate 模式；这不是完整角色矩阵或跨中心隔离验收。
 
 ## 已有入口
 
