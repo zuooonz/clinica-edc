@@ -22,6 +22,7 @@ import java.util.TreeSet;
 
 import javax.sql.DataSource;
 
+import org.akaza.openclinica.bean.core.DiscrepancyNoteType;
 import org.akaza.openclinica.bean.core.ResolutionStatus;
 import org.akaza.openclinica.bean.managestudy.DiscrepancyNoteBean;
 import org.akaza.openclinica.bean.managestudy.DisplayStudyEventBean;
@@ -63,7 +64,13 @@ public class DiscrepancyNoteUtil {
     public static final String[] TYPE_NAMES = {"Query", "Failed Validation Check", "Reason for Change", "Annotation"};
 
     public static String[] getTypeNames() {
-        return TYPE_NAMES;
+        // Summary maps use Term.getName() in the request locale. Returning the
+        // fixed English labels here loses both translated headers and counts.
+        // Keep TYPE_NAMES/TYPES unchanged for existing machine-facing callers.
+        return new String[] { DiscrepancyNoteType.QUERY.getName(),
+                DiscrepancyNoteType.FAILEDVAL.getName(),
+                DiscrepancyNoteType.REASON_FOR_CHANGE.getName(),
+                DiscrepancyNoteType.ANNOTATION.getName() };
     }
 
 

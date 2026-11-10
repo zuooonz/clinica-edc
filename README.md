@@ -1,5 +1,25 @@
+Clinica EDC
+===========
+
+基于 LibreClinica 的中文增强发行版，由本项目独立维护，不代表上游官方背书。
+初期建立可复现、可测试的 EDC 基线与中文核心流程；随后提供受控的版本化接口。
+Clinica Bridge 负责材料处理、候选值和证据审核、Agent 插件；计划中的 Clinica Insight
+负责数据质量与风险分析。模型调用及复杂材料处理优先保留在外部服务。
+
+当前提供**简体中文界面预览版**：浏览器首选语言设为简体中文（`zh-CN`）即可启用，
+英文界面仍可使用。九类资源覆盖全部 3,764 个上游键；受保护角色名称、法律文本和技术编码保留原文。
+完整临床流程及生产使用尚待验收，Bridge 自动写入接口尚未实现。
+现已从固定 MIT 源码构建 PDFBox Layout，解决原 JitPack 摘要异常；新增证书/二维码
+回归与 PostgreSQL 18 候选部署工具，实际验收范围见开发状态。
+先阅读[基线选择](docs/clinica/baseline.md)、[实际开发状态](docs/clinica/status.md)、
+[隔离部署与恢复](docs/clinica/deployment.md)、[角色和工作流](docs/clinica/workflow.md)、
+[本地化](docs/clinica/localization.md)、[接口联调](docs/clinica/bridge.md)、
+[许可证记录](docs/clinica/third-party.md)与[贡献要求](CONTRIBUTING.md)。
+
+以下保留上游项目介绍及适用声明。
+
 LibreClinica
-============
+------------
 
 _the real open source electronic data capture (EDC) for clinical studies._
 

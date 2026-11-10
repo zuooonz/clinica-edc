@@ -8,8 +8,15 @@ It is possible to locally run a LibreClinica instance for development using [Doc
 - [Docker Compose]
 
 ## Preparation
-For the docker setup to work the name of the WAR file needs to be stable. To achieve this, add 
-`<finalName>${project.artifactId}</finalName>` to web/pom.xml (see pull request #394, commit 99ea319).
+The web module sets a stable WAR name for the Docker build. Dependency repositories
+must be reachable from the build environment.
+
+## Clinica EDC validated candidate
+
+The root Compose file remains the inherited PostgreSQL 14 development example.
+For the pinned PostgreSQL 18 candidate, private credentials and verified source
+builds, follow [Clinica deployment](../clinica/deployment.md). Do not migrate
+existing volumes by simply changing a PostgreSQL image tag.
 
 ## Starting LibreClinica
 
@@ -34,3 +41,23 @@ LibreClinica is configured so that it does not actually send emails to the recip
 [Docker]: https://docs.docker.com/
 [Docker Compose]: https://docs.docker.com/compose/
 [Podman]: https://podman.io/
+
+## Clinica EDC local data volumes
+
+The Compose configuration uses project-scoped named volumes for PostgreSQL and
+`/usr/local/tomcat/libreclinica.data`. This is a synthetic-data development setup,
+not a production deployment: the sample database credentials are public and the
+image tags are mutable. The ports bind to loopback; keep it isolated.
+
+Existing installations that used anonymous volumes are **not migrated** by this
+change. Before recreating any existing container, inspect its mounts and back up
+both its database and application files. Do not run `docker compose down -v`
+unless you intend to delete the project's named volumes. External paths configured
+for attachments must also be included in backups.
+
+For a consistent backup, stop application writes and background jobs, then take a
+PostgreSQL dump and a matching copy of the application data and configuration.
+Store backups outside the repository, protect them as sensitive data, and verify a
+restore in a separate isolated project. A database dump alone is not a complete
+EDC backup. Upgrades and rollback require a validated, matching database and file
+snapshot; no upgrade or restore procedure has yet been validated for this setup.

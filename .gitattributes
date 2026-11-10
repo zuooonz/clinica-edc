@@ -1,0 +1,3 @@
+# Preserve frozen upstream bytes, including original line endings/whitespace.
+# Integrity is checked against Git tree/blob and SHA-256 anchors instead.
+vendor/pdfbox2-layout/upstream/** -text -whitespace

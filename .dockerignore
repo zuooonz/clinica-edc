@@ -13,6 +13,8 @@
 !/odm
 !/web
 !/ws
+!/vendor
 
 # ignore build files
 /*/target
+/vendor/*/target

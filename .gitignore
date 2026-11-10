@@ -30,3 +30,8 @@ ws/.DS_Store
 # netbeans
 nb-configuration.xml
 /.README.md.html
+
+# Local synthetic test instances, credentials, build tools and evidence
+/work/
+/tools/browser-baseline/node_modules/
+__pycache__/
