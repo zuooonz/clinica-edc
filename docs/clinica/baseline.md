@@ -13,6 +13,7 @@ Clinica EDC 是独立维护的 LibreClinica 中文增强发行版，不代表上
 - 已实现：开发 Compose 显式命名 PostgreSQL 与应用文件卷。仅用于合成数据的本地开发；默认数据库凭据不可用于公网或生产。
 - 已测试：`docker compose config --quiet` 通过；独立 Compose 项目中 PostgreSQL 14 合成表在强制重建后保留，`pg_dump -Fc` 导出并恢复到另一数据库后中文值一致。这不验证 EDC 数据或应用文件恢复。
 - 构建失败：原始 `docker build -t clinica-baseline:local .` 在 ODM 阶段解析 Maven Central 的 `jaxb2-maven-plugin:2.5.0` 时容器 DNS 失败。宿主的 Maven Central 请求成功，但 OpenClinica JFrog 请求被环境策略以 403 拒绝。尚未跑到应用编译、测试或安装。已按上游容器说明固定 web WAR 文件名以匹配 Dockerfile，尚未完成构建验证。
+- 2026-11-10 再次检查：当前云实例仍为受限网络；在临时 Maven 容器配置代理和受信任 CA 后，Central 插件下载成功。原始源码接着在 ODM 的 XJC 步骤请求 `http://www.w3.org/2001/XMLSchema.dtd` 时遭 403。仅为诊断，在仓库外的临时副本移除该 schema 的外部 DTD 引用后，ODM 模块构建成功，但 Core 依赖解析因 JFrog/JBoss 请求被拒而失败，涉及 `org.jmesa:jmesa:2.4.2-oc`、`log4jdbc:log4jdbc4:1.2` 和 `com.github.ralfstuckert.pdfbox-layout:pdfbox2-layout:1.0.1`。临时副本结果不代表原版构建成功，也未证明这些仓库实际持有全部依赖；尚需开放并核对 `www.w3.org`、`openclinica.jfrog.io`、`repository.jboss.org` 及必要重定向，再重新验证。
 - 尚未验证：应用安装和完整研究流程、中文资源和往返、接口鉴权与写入、临床业务负向用例、应用级备份恢复、升级和回退。禁止将合成测试视为临床或生产验收。
 - 下一步：在隔离环境建立原版研究、中心、用户、CRF、受试者、重复访视、录入/双录入、质疑、SDV、签署、冻结/锁定、审计和导出基线，逐项记录角色、状态、命令及结果；然后开展中文和接口工作。
 - 外部依赖：Maven 包含 OpenClinica JFrog 和 JBoss 仓库；镜像标签和依赖未完全固定。构建网络、许可证及安全检查仍需逐版本核实。
